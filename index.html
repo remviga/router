@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Router</title>
+    <script src="/src/router.js"></script>
+  </head>
+  <body>
+    <!-- NAVIGATION -->
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/some/route">Some route</a></li>
+      <li><a href="/some/another-route">Some another route</a></li>
+    </ul>
+
+    <!-- CONTENT TEMPLATES -->
+    <template id="route1">
+      <h1>"/" route content</h1>
+    </template>
+    <template id="route2">
+      <h1>"/some/route" route content</h1>
+    </template>
+    <template id="route3">
+      <h1>"/some/another-route" route content</h1>
+    </template>
+
+    <!-- ROUTER CONTAINER VIEW -->
+    <div id="root"></div>
+    <script>
+      window.onload = () => {
+        const router = new BrowserRouter({
+          routes: [
+            {
+              path: "/",
+              component: document
+                .querySelector("#route1")
+                .content.querySelector("*")
+                .cloneNode(true),
+            },
+            {
+              path: "/some/route",
+              component: document
+                .querySelector("#route2")
+                .content.querySelector("*")
+                .cloneNode(true),
+            },
+          ],
+          viewContainer: document.querySelector("#root"),
+        });
+
+        router.addRoute({
+          path: "/some/another-route",
+          component: document
+            .querySelector("#route3")
+            .content.querySelector("*")
+            .cloneNode(true),
+        });
+      };
+    </script>
+  </body>
+</html>
